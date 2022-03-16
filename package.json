@@ -1,0 +1,16 @@
+{
+  "name": "swim",
+  "version": "1.0.0",
+  "description": "System Water Management",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "SET NODE_ENV=development & electron src/main.js"
+  },
+  "keywords": [],
+  "author": "Southware",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^17.1.2"
+  }
+}
