@@ -144,7 +144,7 @@ class Abonados {
   };
 
   /**
-   * Método editar el Abonado de la base de datos.
+   * Método para craer el Abonado de la base de datos.
    * @param {string} idAbonado UUID del Abonado
    * @param {string} identidad Identidad del Abonado (XXXX-XXXX-XXXXX)
    * @param {string} nombres Primer y Segundo (opcional) nombres del Abonado
@@ -189,9 +189,9 @@ class Abonados {
       apellidos,
       direccion,
       fechaNacimiento,
-      sexo,
       telefono,
       correoElectronico,
+      sexo,
     ];
     const resultado = await db.transaction((tx) =>
       tx.executeSql(createAbonadoSql, values)

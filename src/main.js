@@ -17,6 +17,21 @@ function createWindow() {
   win.maximize();
 }
 
+ventanaContrato = () => {
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: true,
+      enableRemoteModule: true,
+    },
+  });
+
+  win.loadFile("views/abonados/contrato.html");
+  win.maximize();
+};
+
 app.whenReady().then(() => {
   createWindow();
 
