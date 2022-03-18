@@ -6,11 +6,15 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      nodeIntegration: true,
+      contextIsolation: true,
+      // devTools: true,
+      enableRemoteModule: true,
     },
   });
 
-  win.loadFile("views/index.html");
+  win.loadFile("views/abonados/abonados.html");
+  win.maximize();
 }
 
 app.whenReady().then(() => {
