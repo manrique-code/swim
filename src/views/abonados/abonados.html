@@ -4,12 +4,308 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../assets/css/abonados/abonados.css" />
+    <link rel="stylesheet" href="../../assets/css/fontawesome/all.css" />
+    <link
+      rel="stylesheet"
+      href="../../assets/css/fontawesome/fontawesome.css"
+    />
+    <link rel="stylesheet" href="../../assets/css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
     <title>Abonados</title>
   </head>
   <body>
-    <h1>Hola mundo desde la ventana de Abonados!</h1>
+    <div class="container-fluid bg-primary bg-gradient mt-n1">
+      <header class="d-flex flex-wrap justify-content-center py-3 pe-5 ps-1">
+        <a
+          href="#"
+          class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
+          id="headerButtonSidebar"
+        >
+          <i
+            class="fa-solid fa-bars me-3 text-white align-items-center"
+            style="height: 24px; width: 24px"
+          ></i>
+          <span class="fs-4 fw-bold text-white">Ingresando un abonado</span>
+        </a>
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a href="#" class="btn btn-light" aria-current="page">Ir al menú</a>
+          </li>
+        </ul>
+      </header>
+    </div>
+
+    <main class="container-fluid">
+      <section class="row">
+        <aside
+          class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark col-2"
+          style="width: 280px"
+          id="sidebarSwim"
+        >
+          <a
+            href="/"
+            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+          >
+            <span class="fs-4">Abonados</span>
+          </a>
+          <hr />
+          <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-itema">
+              <a
+                href="abonados.html"
+                class="nav-link active"
+                aria-current="page"
+              >
+                <i
+                  class="fa-solid fa-user-plus me-2"
+                  width="16"
+                  heigth="16"
+                ></i>
+                Crear abonados
+              </a>
+            </li>
+            <li class="nav-itema">
+              <a href="verabonado.html" class="nav-link text-white">
+                <i
+                  class="fa-solid fa-circle-user me-2"
+                  width="16"
+                  heigth="16"
+                ></i>
+                Ver abonado
+              </a>
+            </li>
+            <li class="nav-itema">
+              <a href="#" class="nav-link text-white">
+                <i
+                  class="fa-solid fa-users-line me-2"
+                  width="16"
+                  heigth="16"
+                ></i>
+                Listado de abonados
+              </a>
+            </li>
+          </ul>
+          <hr />
+          <div class="dropdown">
+            <a
+              href="#"
+              class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+              id="dropdownUser1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="https://github.com/mdo.png"
+                alt=""
+                width="32"
+                height="32"
+                class="rounded-circle me-2"
+              />
+              <strong>mdo</strong>
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-dark text-small shadow"
+              aria-labelledby="dropdownUser1"
+            >
+              <li><a class="dropdown-item" href="#">New project...</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
+          </div>
+        </aside>
+        <article class="col-8 mt-4">
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link active"
+                id="tab-informacion"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-home"
+                type="button"
+                role="tab"
+                aria-controls="pills-home"
+                aria-selected="true"
+              >
+                1. Información personal
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="tab-contacto"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-profile"
+                type="button"
+                role="tab"
+                aria-controls="pills-profile"
+                aria-selected="false"
+              >
+                2. Información de contacto
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div
+              class="tab-pane fade show active"
+              id="pills-home"
+              role="tabpanel"
+              aria-labelledby="tab-informacion"
+            >
+              <h5 class="text-muted mb-3 fs-6">
+                Ingrese la información personal del abonado
+              </h5>
+
+              <!-- FORMULARIOS INFORMACION PERSONAL-->
+              <div class="mb-3">
+                <label for="txtIdentidad" class="form-label"
+                  >Número de identidad</label
+                >
+                <input
+                  maxlength="13"
+                  type="text"
+                  class="form-control"
+                  id="txtIdentidad"
+                  placeholder="XXXX-XXXX-XXXXX"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="txtNombres" class="form-label">Nombres</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtNombres"
+                  placeholder="Alejandro Fulano"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="txtApellidos" class="form-label">Apellidos</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtApellidos"
+                  placeholder="Gonzales Iñárritu"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="txtFechaNac" class="form-label"
+                  >Fecha de nacimiento</label
+                >
+                <input type="date" class="form-control" id="txtFechaNac" />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label col-12">Género</label>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="inlineRadioOptions"
+                    id="txtSexo1"
+                    value="1"
+                  />
+                  <label class="form-check-label" for="txtSexo1">Hombre</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="inlineRadioOptions"
+                    id="txtSexo2"
+                    value="2"
+                  />
+                  <label class="form-check-label" for="txtSexo2">Mujer</label>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="txtDireccion" class="form-label">Dirección</label>
+                <textarea
+                  name=""
+                  id="txtDireccion"
+                  cols="30"
+                  rows="10"
+                  class="form-control"
+                ></textarea>
+              </div>
+              <div class="col-12">
+                <button
+                  class="btn btn-outline-secondary me-2"
+                  id="btn-cancelar"
+                >
+                  Cancelar
+                </button>
+                <button class="btn btn-primary" id="btn-siguiente">
+                  Siguiente <i class="fa-solid fa-arrow-right ms-1"></i>
+                </button>
+              </div>
+            </div>
+            <!-- FORMULARIOS INFORMACION PERSONAL -->
+            <div
+              class="tab-pane fade"
+              id="pills-profile"
+              role="tabpanel"
+              aria-labelledby="tab-contacto"
+            >
+              <h5 class="text-muted mb-3 fs-6">
+                Ingrese la información de contacto del abonado
+              </h5>
+
+              <!-- FORMULARIOS CONTACTO PERSONAL-->
+              <div class="mb-3">
+                <label for="txtTelefono" class="form-label"
+                  >Número telefónico
+                  <span class="text-danger"> <sup>(opcional)</sup> </span>
+                </label>
+                <input
+                  maxlength="8"
+                  type="text"
+                  class="form-control"
+                  id="txtTelefono"
+                  placeholder="99XX-99XX"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="txtCorreo" class="form-label"
+                  >correo electrónico
+                  <span class="text-danger"> <sup>(opcional)</sup> </span>
+                </label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="txtCorreo"
+                  placeholder="ejemplo@gmail.com"
+                />
+              </div>
+              <div class="col-12">
+                <button
+                  class="btn btn-outline-secondary me-2"
+                  id="btn-cancelar"
+                >
+                  Cancelar
+                </button>
+                <button
+                  class="btn btn-primary"
+                  id="btn-guardar-info"
+                  type="submit"
+                >
+                  Guardar abonado
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+        <div class="col-2"></div>
+      </section>
+    </main>
   </body>
+  <script src="../../assets/js/fontawesome/all.js"></script>
+  <script src="../../assets/js/bootstrap/bootstrap.js"></script>
   <!-- Buscamos el script de la vista pero lo invocamos como un módulo para poder importar archivos -->
   <script
     type="module"
