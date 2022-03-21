@@ -12,6 +12,7 @@
   "author": "Southware",
   "license": "MIT",
   "dependencies": {
+    "@electron/remote": "^2.0.8",
     "electron": "^17.1.2"
   }
 }
