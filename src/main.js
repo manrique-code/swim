@@ -32,12 +32,27 @@ ventanaContrato = () => {
   win.maximize();
 };
 
+ventanaUsuario = () => {
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: true,
+      enableRemoteModule: true,
+    },
+  });
+
+  win.loadFile("views/usuarios/usuarios.html");
+  win.maximize();
+};
+
 app.whenReady().then(() => {
-  createWindow();
+  ventanaUsuario();
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+      ventanaUsuario();
     }
   });
 });
