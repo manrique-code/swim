@@ -1,0 +1,41 @@
+:root {
+  --background--primary-color: #fff;
+  --background-secondary-color: #0984e3;
+  --button-primary-color: #0984e3;
+  --button-secondary-color: #fff;
+  --button-border-primary-color: #0984e3;
+  --button-border-secondary-color: #fff;
+  --button-transitions: cubic-bezier(0.42, 0, 0.56, 1.33);
+  --font-primary-color: #000;
+  --font-secondary-color: #fff;
+  --font-terciary-color: #777;
+  font-size: 16px;
+  --header-size: 3.125rem;
+  --border-radius-size: 0.5em;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+aside {
+  position: relative;
+  height: 100vh;
+  transform: translateX(-300px);
+  transition: transform 0.4s ease;
+}
+
+aside.mostrar {
+  transform: translateX(0);
+}
+
+@media (hover: hover) {
+  li.nav-itema:hover {
+    border-radius: 5px;
+    background-color: hsl(210, 11%, 25%);
+  }
+}

@@ -38,6 +38,15 @@ class Abonados {
     });
   }
 
+  generarUuid = async () => {
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+      (
+        c ^
+        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+      ).toString(16)
+    );
+  };
+
   /**
    * Método para crear los dos únicos sexos que existen en el mundo (basado).
    * @returns Promise
@@ -154,6 +163,7 @@ class Abonados {
    * @param {number} sexo Sexo del Abonado (1 = Masculino | 2 = Femenino)
    * @param {string} telefono Telefono del abonado abonado (opcional)
    * @param {string} correoElectronico Dirección de correo electrónico del abonado (opcional)
+   * @param {function} callback Función para obtener sí el resultado fue correcto
    * @returns Promise
    */
   nuevoAbonado = async (
@@ -165,7 +175,8 @@ class Abonados {
     fechaNacimiento,
     sexo,
     telefono = "",
-    correoElectronico = ""
+    correoElectronico = "",
+    callback
   ) => {
     const createAbonadoSql = `
       INSERT INTO abonados(
@@ -194,7 +205,9 @@ class Abonados {
       sexo,
     ];
     const resultado = await db.transaction((tx) =>
-      tx.executeSql(createAbonadoSql, values)
+      tx.executeSql(createAbonadoSql, values, (tx, result) => {
+        callback(result);
+      })
     );
     return resultado;
   };
