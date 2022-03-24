@@ -13,3 +13,14 @@ const datos = await usuarioModel.nuevoUsuario(
 );
 
 console.log(datos);*/
+
+document
+  .getElementById("headerButtonSidebar")
+  .addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const sidebar = document.getElementById("sidebarSwim");
+    if (sidebar.classList.contains("mostrar"))
+      sidebar.classList.remove("mostrar");
+    else sidebar.classList.add("mostrar");
+  });
