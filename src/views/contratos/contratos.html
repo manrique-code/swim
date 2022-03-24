@@ -4,15 +4,171 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../assets/css/fontawesome/all.css" />
+        <link
+          rel="stylesheet"
+          href="../../assets/css/fontawesome/fontawesome.css"
+        />
+        <link rel="stylesheet" href="../../assets/css/bootstrap/bootstrap.css" />
+        <link rel="stylesheet" href="../../assets/css/styles.css" />
+        <link rel="stylesheet" href="../../assets/css/contratos/contratos.css">
         <title>Contrato</title>
     </head>
     <body>
-        <h1>Contratos</h1>
-        <h1>CREAR CONTRATOS</h1>
-        
+        <nav class="navbar navbar-dark bg-primary fixed-top">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <a class="navbar-brand" href="#">Contratos</a>
+              <!-- CANVAS -->
+              <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header bg-primary text-light">
+                  <h5 class="offcanvas-title" id="offcanvasExampleLabel ">Opciones</h5>
+                  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body lateral text-light">
+                  
+                  <ul class="nav list-group bg-dark" id="myTab" role="tablist">
+                    
+                      <li class="nav-item list-group-item d-grid gap-2 " role="presentation">
+                        <button class="nav-link active btn btn-outline-light" id="home-tab" data-bs-toggle="tab" data-bs-target="#crearcontrato" type="button" role="tab" aria-controls="crearcontrato" aria-selected="true">Crear Contratos</button>
+                      </li>
+                      <li class="nav-item list-group-item d-grid gap-2" role="presentation">
+                        <button class="nav-link btn btn-outline-light" id="profile-tab" data-bs-toggle="tab" data-bs-target="#vercontratos" type="button" role="tab" aria-controls="vercontratos" aria-selected="false">Ver Contratos</button>
+                      </li>
+                      <li class="nav-item list-group-item d-grid gap-2" role="presentation">
+                        <button class="nav-link btn btn-outline-light" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+                      </li>
+                    
+                  </ul>
+                  
+                </div>
+              </div>
+              <!-- CANVAS -->
+            </div>
+          </nav>
+
+
+          <div class="tab-content container" id="myTabContent" style="padding-top: 5rem;">
+            <!-- CONTENIDO FORMULARIO -->
+            <div class="tab-pane fade show active" id="crearcontrato" role="tabpanel" aria-labelledby="crearcontrato-tab">
+              <!-- FORMULARIO -->
+                <div class="row" >
+                  <div class="col-8"> 
+                    <!-- DATATABLE DE LOS CONTRATOS -->
+                    <table class="table overflow-y: scroll;"id="tablaAbonado">
+                      <thead>
+                        <tr>
+                          <th scope="col">Id</th>
+                          <th scope="col">Casa</th>
+                          <th scope="col">Bloque</th>
+                          <th scope="col">Estado</th>
+                          <th scope="col">Direccion</th>
+                          <th scope="col">Tipo</th>
+                          <th scope="col">Accion</th>
+
+                        </tr>
+                      </thead>
+                      <tbody id = "dataAbonado">
+                        <!-- DATOS DE CONTRATOS INSERTADOS DESDE LA BD -->
+                      </tbody>
+                    </table>
+                    <!-- FIN DATA TABLE -->
+                  </div>
+                  <div class="col-4">
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="mb-3">
+                          <label for="txtDireccion" class="form-label">Abonado</label>
+                            <input class="form-control" type="text" value="Pablo Emilio Paizano" data-id="0601200100289" id="abonadoName" aria-label="readonly input example" readonly>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="mb-3">
+                          <label for="txtNumCasa" class="form-label">
+                            Numero de Casa
+                          </label>
+                          <input
+                            maxlength="13"
+                            type="text"
+                            class="form-control"
+                            id="txtNumCasa"
+                            placeholder="Casa #2245"
+                          />
+                        </div>
+                      </div> 
+                      
+                      <div class="col-6">
+                        <label for="optBloque" class="form-label">Bloque</label>
+                        <select class="form-select" id="optBloque" aria-label="Default select example">
+                          <option selected>BLQ 1</option>
+                          <option value="2">BLQ 1</option>
+                          <option value="3">BLQ 2</option>
+                          <option value="4">BLQ 3</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-6">
+                        <label for="" class="form-label">Estado del Contrato</label>
+                        <select class="form-select" id="optEstadoContrato" aria-label="Default select example">
+                          <option selected value="1">Activo</option>
+                          <option value="2">Inactivo</option>
+                      
+                        </select>
+                      </div>
+                      <div class="col-6">
+                        <label for="optTipoContrato" class="form-label">Tipo de Contrato</label>
+                        <select class="form-select" id="optTipoContrato" aria-label="Default select example">
+                          <option selected value="1">Pila</option>
+                          <option value="2">Cisterna</option>
+                          <option value="3">Contenedor Rotoplast</option>
+
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="mb-3">
+                        <label for="txtDireccion" class="form-label">Dirección</label>
+                        <textarea class="form-control" id="txtDireccion" rows="6"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button class="btn btn-danger me-md-2" id="btnCancelar" type="button">Cancelar</button>
+                      <button class="btn btn-success" type="button" id="btnCrear">Crear</button>
+                    </div>
+                  </div>
+                </div>
+              <!-- FORMULARIO FIN -->
+
+            </div>
+            <!-- FIN CONTENIDO FORMULARIO -->
+                  
+            <!-- CONTRATOS -->
+            <div class="tab-pane fade" id="vercontratos" role="tabpanel" aria-labelledby="profile-tab"><h1>HOLA TAB2</h1></div>
+            <!-- FIN CONTRATOS -->
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"><h1>HOLA TAB3</h1></div>
+          </div>
+
+          <!-- MODAL ABONADOS -->
+
+
+          <!-- MODAL ABONADOS -->
+          
+
     </body>
+    <script src="../../assets/js/fontawesome/all.js"></script>
+    <script src="../../assets/js/bootstrap/bootstrap.js"></script>
     <script
       type="module"
       src="../../assets/js/contratos/contratos.view.js"
     ></script>
+    
 </html>
