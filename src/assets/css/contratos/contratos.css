@@ -1,0 +1,46 @@
+body{
+    width: 100%;
+    margin: 0; 
+    height: 100%; 
+    overflow: hidden
+}
+td a{
+    text-decoration: none;
+}
+.lateral{
+    background-color: hsl(210, 11%, 25%);
+}
+
+.btnEdit{
+    cursor: pointer;
+}
+
+.selected {
+    background-color: rgb(50, 101, 211);
+    color: #FFF;
+}
+
+
+table {
+    width: 716px; /* 140px * 5 column + 16px scrollbar width */
+    border-spacing: 0;
+    background-color: rgb(163, 163, 163);
+}
+
+tbody, thead tr { display: block; color: #FFFF; }
+th{
+    color: rgb(13, 69, 255);
+}
+tbody {
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+tbody td, thead th {
+    width: 140px;
+}
+
+thead th:last-child {
+    width: 156px; /* 140px + 16px scrollbar width */
+}
