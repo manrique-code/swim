@@ -28,7 +28,7 @@ ventanaContrato = () => {
     },
   });
 
-  win.loadFile("views/abonados/contrato.html");
+  win.loadFile("views/contratos/contratos.html");
   win.maximize();
 };
 

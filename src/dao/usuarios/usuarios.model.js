@@ -129,6 +129,7 @@ class Usuarios {
         fechaRegistro,
         estadoUsuario,
         tipoUsuario,
+        callback
       ) => {
         const createUsuarioSql = `
           INSERT INTO usuarios(
@@ -149,7 +150,9 @@ class Usuarios {
             tipoUsuario,
         ];
         const resultado = await db.transaction((tx) =>
-          tx.executeSql(createUsuarioSql, values)
+          tx.executeSql(createUsuarioSql, values, (tx, result) => {
+            callback(result);
+          })
         );
         return resultado;
     };
