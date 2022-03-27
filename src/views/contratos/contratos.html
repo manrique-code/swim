@@ -234,15 +234,45 @@
             <!-- SECCION DE REPORTES -->
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
               <h1>Seccion de Reportes</h1>
+              
               <div class="row" style="margin-bottom: 10px;">
                 <div class="col-9">
-                  <input type="search" id="searchReport" class="form-control">
+                  <!-- FILTRO DE REPORTES -->
+                  <div class="row">
+                    <div class="col-8">
+                      <div class="row">
+                        <input type="search" id="txtReportId" style="display: none;" class="form-control" placeholder="Ejem. 0601-2001-00349">
+                        <input type="search" id="txtReportNombre" style="display:none;" class="form-control" placeholder="Ejem. Carlos">
+                        <select name="" class="form-select" style="display:none;" id="selectEstadoReporte"></select>
+                        <select name="" class="form-select" style="display:none;" id="selectBloqueReporte"></select>
+                      </div>
+                    
+                    </div>
+                    <div class="col-4">
+                      <select name="" class="form-select" id="tipoReporte">
+                        <option value="0" selected >Todos</option>
+                        <option value=1>Identidad</option>
+                        <option value=2>Nombre</option>
+                        <option value=3>Estado</option>
+                        <option value=4>Bloque</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- FIN FILTRO DE REPORTES -->
                 </div>
                 <div class="col-3">
                   <button class="form-control btn btn-secondary" id="btnCrearReporte">CREAR REPORTE</button>
                 </div>
               </div>
-              <table id="tablaReportes">
+
+              <!-- FILA PARA Nombre -->
+ 
+              <!-- FILA PARA ESTADO -->
+
+              <!-- FILA PARA BLOQUE -->
+
+
+              <table id="tablaReportes" class="table table-striped">
                 <thead>
                   <tr>
                     <th>Contrato</th>
