@@ -6,6 +6,11 @@ body{
 }
 td a{
     text-decoration: none;
+    
+}
+thead{
+    background-color:rgb(50, 101, 211); 
+    color: white;
 }
 .lateral{
     background-color: hsl(210, 11%, 25%);
@@ -21,26 +26,133 @@ td a{
 }
 
 
-table {
-    width: 716px; /* 140px * 5 column + 16px scrollbar width */
+#tableContratos {
+    width: 100%; /* 140px * 5 column + 16px scrollbar width */
     border-spacing: 0;
-    background-color: rgb(163, 163, 163);
+    /* background-color: rgb(163, 163, 163); */
 }
-
-tbody, thead tr { display: block; color: #FFFF; }
-th{
-    color: rgb(13, 69, 255);
-}
-tbody {
-    height: 500px;
+#tableContratos tbody {
+    height: 600px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-tbody td, thead th {
+#tableContratos tbody td, thead th {
     width: 140px;
 }
 
+#tablaAbonados{
+    width: 600px; /* 140px * 5 column + 16px scrollbar width */
+    height: 500px;
+    border-spacing: 0;
+    margin-top: 10px;
+
+    /* background-color: rgb(163, 163, 163); */
+}
+
+#tablaAbonados tbody{
+    height: 400px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    table-layout: fixed;
+}
+
+#tablaAbonados tbody  td{
+    width: 200px;
+    word-wrap: break-word;
+}
+#tablaAbonados thead  th{
+    /* width: 250px; */
+    
+    width: 180px;
+    word-wrap: break-word;
+
+}
+
+
+/* tbody, thead tr { display: block;  } */
+
+#tablaAbonados tbody, thead tr { display: block;  }
+#tableContratos tbody, thead tr { display: block;  }
+
+
 thead th:last-child {
-    width: 156px; /* 140px + 16px scrollbar width */
+    width: 156px; 
+}
+
+.modal{
+    text-align:center;         
+    background-color: rgba(0,0,0,0.7);
+    
+   
+}
+
+.modal-content{
+    width: 625px;
+}
+
+.btnSelectAbonado{
+    cursor: pointer;
+}
+
+
+
+
+
+/* TABLA ETAPAS */
+#tablaEtapas tbody, thead tr { display: block;  }
+#tablaEtapas thead tr th {
+    width: 200px;
+    text-align: center;
+}
+#tablaEtapas tbody{
+    height: 300px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}
+#tablaEtapas tbody  td{
+    width: 200px;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+/* TABLA BlOQUES */
+#tablaBloques tbody, thead tr { display: block;  }
+#tablaBloques thead tr th {
+    width: 200px;
+    text-align: center;
+}
+#tablaBloques tbody{
+    height: 300px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}
+#tablaBloques tbody  td{
+    width: 200px;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+/* TABLA REPORTES */
+#tablaReportes tbody, thead tr { display: block;  }
+#tablaReportes thead tr th {
+    width: 200px;
+    text-align: center;
+}
+#tablaReportes tbody{
+    height: 300px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}
+#tablaReportes tbody  td{
+    width: 200px;
+    word-wrap: break-word;
+    text-align: center;
 }

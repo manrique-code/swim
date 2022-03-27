@@ -6,7 +6,7 @@ class Contratos{
         const etapaStatement = `
             CREATE TABLE IF NOT EXISTS etapa(
                 idEtapa INTEGER PRIMARY KEY AUTOINCREMENT,
-                numEtapa TEXT NOT NULL
+                nombreEtapa TEXT NOT NULL
             );
         `
         const bloqueStatement = `
@@ -90,6 +90,26 @@ class Contratos{
         
     }
 
+    actualizarContrato = async(idContrato,numCasa,direccionPegue,idTipoContrato,idEstadoContrato,idBloque,idUsuario)=>{
+            
+        const insertCmd = `UPDATE Contratos SET
+            numCasa =?,
+            direccionPegue =?,
+            idTipoContrato = ?,
+            idEstadoContrato =?,
+            idBloque =?,
+            idUsuario=? 
+            WHERE idContrato = ?;`
+
+        const values = [numCasa,direccionPegue,idTipoContrato,idEstadoContrato,idBloque,idUsuario,idContrato]
+        const rslt = await db.transaction((tx)=>{
+            tx.executeSql(insertCmd,values);
+        })
+        return rslt;
+        
+    }
+
+
     /**
      * METODO PARA VER TODOS LOS CONTRATOS
      * @param {Function} callback retorna un arreglo de Contratos
@@ -130,6 +150,150 @@ class Contratos{
         const sql = "DELETE FROM Contratos WHERE idContrato = ?";
         await db.transaction((tx)=>{
             tx.executeSql(sql,[id]);
+        })
+    }
+    
+
+    verContratoAvanzado =  async ( callback) => {
+        const sql =`
+        SELECT
+        Contratos.idContrato AS idContrato,
+        Contratos.numCasa AS numCasa,
+        Contratos.direccionPegue AS direccionPegue,
+        abonados.idAbonado AS idAbonado,
+        abonados.nombres AS nombres,
+        abonados.apellidos AS apellidos,
+        tipoContratos.idTipoContrato AS idTipoContrato,
+        tipoContratos.tipoContrato AS tipoContrato,
+        estadoContrato.idEstadoContrato AS idEstadoContrato,
+        estadoContrato.estadoContrato AS estadoContrato,
+        Contratos.idUsuario,
+        bloque.idBloque AS idBloque,
+        bloque.numBloque AS numBloque
+
+        FROM
+        Contratos
+        INNER JOIN abonados         ON abonados.idAbonado = Contratos.idAbonado
+        INNER JOIN tipoContratos    ON tipoContratos.idTipoContrato = Contratos.idTipoContrato
+        INNER JOIN estadoContrato   ON estadoContrato.idEstadoContrato = Contratos.idEstadoContrato
+        INNER JOIN bloque           ON bloque.idBloque  = Contratos.idBloque;
+        `
+
+        let values = [];
+        let contrato = [];
+        await db.transaction((tx) => {
+          tx.executeSql(sql, values, (tx, resultados) => {
+            [...resultados.rows].map((fila) => contrato.push(fila));
+            callback(contrato);
+          });
+        });
+    }; 
+
+    buscarContratoAvanzado =  async (identidad="",nombre="",apellido="",callback) => {
+        const sql =`
+        SELECT
+        Contratos.idContrato AS idContrato,
+        Contratos.numCasa AS numCasa,
+        Contratos.direccionPegue AS direccionPegue,
+        abonados.idAbonado AS idAbonado,
+        abonados.identidad AS identidad,
+        abonados.nombres AS nombres,
+        abonados.apellidos AS apellidos,
+        tipoContratos.idTipoContrato AS idTipoContrato,
+        tipoContratos.tipoContrato AS tipoContrato,
+        estadoContrato.idEstadoContrato AS idEstadoContrato,
+        estadoContrato.estadoContrato AS estadoContrato,
+        Contratos.idUsuario,
+        bloque.idBloque AS idBloque,
+        bloque.numBloque AS numBloque
+
+        FROM
+        Contratos
+        INNER JOIN abonados         ON abonados.idAbonado = Contratos.idAbonado
+        INNER JOIN tipoContratos    ON tipoContratos.idTipoContrato = Contratos.idTipoContrato
+        INNER JOIN estadoContrato   ON estadoContrato.idEstadoContrato = Contratos.idEstadoContrato
+        INNER JOIN bloque           ON bloque.idBloque  = Contratos.idBloque
+        WHERE abonados.identidad LIKE ?;
+        `
+        //OR abonado.nombres LIKE = ? OR abonado.apellidos LIKE = ?
+        
+        var like = `%${identidad}`
+        let values = [like];
+        let contrato = [];
+        await db.transaction((tx) => {
+          tx.executeSql(sql, values, (tx, resultados) => {
+            [...resultados.rows].map((fila) => contrato.push(fila));
+            callback(contrato);
+          });
+        });
+    }; 
+
+
+
+    /**
+     * FUNCION PARA INSERTAR BLOQUES
+     * @param {text} numBloque numero de bloque
+     * @param {integer} idEtapa llave foranea de etapa
+     */
+
+    crearBloque = async(numBloque,idEtapa)=>{
+        var sql = "INSERT INTO bloque(numBloque, idEtapa) values(?,?)"
+        var data = [numBloque,idEtapa]
+        await db.transaction((tx)=>{
+            tx.executeSql(sql,data);
+        })
+    } 
+
+    /**
+     * FUNCION PARA VER BLOQUES
+     * @param {Function} callback retorna un arreglo de bloqyues
+     */
+    verBloques = async(callback)=>{
+        var bloques = []
+        await db.transaction((tx)=>{
+            tx.executeSql("SELECT * FROM bloque",[],(tx,result)=>{
+                [...result.rows].map((datos)=>{
+                    bloques.push(datos)
+                })
+                callback(bloques);
+            })
+        })
+    }
+
+
+
+    crearEtapa = async(nombreEtapa)=>{
+        var sql = "INSERT INTO etapa(nombreEtapa) values(?)"
+        var data = [nombreEtapa]
+        await db.transaction((tx)=>{
+            tx.executeSql(sql,data);
+        })
+    } 
+
+
+    verEtapa = async(callback)=>{
+        var etapas = []
+        await db.transaction((tx)=>{
+            tx.executeSql("SELECT * FROM etapa",[],(tx,result)=>{
+                [...result.rows].map((datos)=>{
+                    etapas.push(datos)
+                })
+                callback(etapas);
+            })
+        })
+    }
+
+    crearStados = async(id,estado)=>{
+        var sql = "INSERT INTO estadoContrato(idEstadoContrato,estadoContrato) VALUES(?,?)"
+        await db.transaction((tx)=>{
+            tx.executeSql(sql,[id,estado])
+        })
+    }
+
+    crearTipos= async(id,tipo)=>{
+        var sql = "INSERT INTO tipoContratos(idTipoContrato,tipoContrato) VALUES(?,?)"
+        await db.transaction((tx)=>{
+            tx.executeSql(sql,[id,tipo])
         })
     }
 
