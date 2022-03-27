@@ -47,12 +47,27 @@ ventanaUsuario = () => {
   win.maximize();
 };
 
+ventanafacturacion = () => {
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: true,
+      enableRemoteModule: true,
+    },
+  });
+
+  win.loadFile("views/facturacion/facturacion.html");
+  win.maximize();
+};
+
 app.whenReady().then(() => {
-  ventanaUsuario();
+  ventanafacturacion();
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      ventanaUsuario();
+      ventanafacturacion();
     }
   });
 });
