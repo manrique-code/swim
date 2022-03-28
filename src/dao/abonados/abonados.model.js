@@ -35,7 +35,6 @@ class Abonados {
     db.transaction((tx) => {
       tx.executeSql(abonadosStatement);
       tx.executeSql(sexoStatement);
-      console.log("base de datos creada correctamente!");
     });
   }
 
@@ -270,9 +269,11 @@ class Abonados {
     fechaNacimiento,
     sexo,
     telefono = "",
-    correoElectronico = ""
+    correoElectronico = "",
+    callback
   ) => {
-    const updateAbonadoSql = `
+    try {
+      const updateAbonadoSql = `
       UPDATE abonados
       SET identidad = ?,
           nombres = ?,
@@ -284,21 +285,26 @@ class Abonados {
           correoElectronico = ?
       WHERE idAbonado = ?;
     `;
-    const values = [
-      identidad,
-      nombres,
-      apellidos,
-      direccion,
-      fechaNacimiento,
-      sexo,
-      telefono,
-      correoElectronico,
-      idAbonado,
-    ];
-    const resultado = await db.transaction((tx) =>
-      tx.executeSql(updateAbonadoSql, values)
-    );
-    return resultado;
+      const values = [
+        identidad,
+        nombres,
+        apellidos,
+        direccion,
+        fechaNacimiento,
+        sexo,
+        telefono,
+        correoElectronico,
+        idAbonado,
+      ];
+      const resultado = await db.transaction((tx) =>
+        tx.executeSql(updateAbonadoSql, values, (tx, result) => {
+          callback(result);
+        })
+      );
+      return resultado;
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   /**
@@ -306,15 +312,16 @@ class Abonados {
    * @param {string} id UUID del Abonado que se desea eliminar
    * @returns Promise
    */
-  eliminarAbonado = async (id) => {
+  eliminarAbonado = async (id, callback) => {
     const sql = `
       DELETE
       FROM abonados
       WHERE idAbonado = ?;
     `;
     const values = [id];
-    const resultado = await db.transaction((tx) => tx.executeSql(sql, values));
-    return resultado;
+    const resultado = await db.transaction((tx) =>
+      tx.executeSql(sql, values, (tx, result) => callback(result))
+    );
   };
 }
 
