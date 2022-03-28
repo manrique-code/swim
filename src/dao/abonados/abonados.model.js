@@ -25,6 +25,7 @@ class Abonados {
       fechaNacimiento TEXT NOT NULL,
       telefono TEXT,
       correoElectronico TEXT,
+      timestamp TEXT,
       idSexo INTEGER,
       FOREIGN KEY(idSexo) REFERENCES sexo(idSexo)
     );
