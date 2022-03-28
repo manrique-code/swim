@@ -4,6 +4,7 @@ const contratoModel = new Contratos();
 import Abonados from "../../../dao/abonados/abonados.model.js"
 const abonadosModel = new Abonados();
 
+
 //FUNCION DE PRUEBA PARA CREAR ABONADOS
 for (let index = 0; index < 15; index++) {
     const datos = await abonadosModel.nuevoAbonado(
@@ -620,7 +621,7 @@ const llenarReportes = (buscar,tipo) =>{
                     data-tip=${tipo}
                     >
                     <td>${idContrato}</td>
-                    <td>${nombre}</td>
+                    <td>${nombre+" "+apellido}</td>
                     <td>${numCasa}</td>
                     <td>${numBloque}</td>
                     <td>${direccion}</td>
@@ -724,5 +725,12 @@ document.getElementById("selectBloqueReporte").addEventListener("change",(e)=>{
 
 })
 
+document.getElementById("btnCrearReporte").addEventListener("click",(e)=>{
+    let tReportes = document.getElementById("tablaReportes")
+    let libro = XLSX.utils.table_to_book(tReportes)
+    let ws = libro.Sheets["Sheet1"];
+    XLSX.utils.sheet_add_aoa(ws, [["Creado "+new Date().toISOString()]], {origin:-1});
+    XLSX.writeFile(libro, "ReporteContratos.xlsx");
 
 
+})
