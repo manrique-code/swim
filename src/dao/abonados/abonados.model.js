@@ -158,6 +158,34 @@ class Abonados {
   };
 
   /**
+   * Método para buscar abonados por su nombre
+   * @param {string} nombre Nombre del abonado a buscar
+   * @param {function} callback Callback para obtener los resultados de la busqueda
+   */
+  buscarAbonadoPorNombre = (nombre, callback) => {
+    try {
+      const sql = `
+        SELECT *
+        FROM abonados
+        WHERE nombres
+        LIKE ?
+      `;
+      let values = [`${nombre}%`];
+      let items = [];
+      db.transaction((tx) => {
+        tx.executeSql(sql, values, (tx, resultados) => {
+          resultados?.rowsAffected === 0 && callback(items);
+          [...resultados.rows].map((fila) => items.push(fila));
+          console.log(resultados);
+          callback(items);
+        });
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
    * Método para craer el Abonado de la base de datos.
    * @param {string} idAbonado UUID del Abonado
    * @param {string} identidad Identidad del Abonado (XXXX-XXXX-XXXXX)
