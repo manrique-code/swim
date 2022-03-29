@@ -63,11 +63,11 @@ ventanafacturacion = () => {
 };
 
 app.whenReady().then(() => {
-  createWindow();
+  ventanafacturacion();
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+      ventanafacturacion();
     }
   });
 });
