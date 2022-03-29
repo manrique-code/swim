@@ -4,6 +4,7 @@ const contratoModel = new Contratos();
 import Abonados from "../../../dao/abonados/abonados.model.js"
 const abonadosModel = new Abonados();
 
+
 //FUNCION DE PRUEBA PARA CREAR ABONADOS
 for (let index = 0; index < 15; index++) {
     const datos = await abonadosModel.nuevoAbonado(
@@ -26,12 +27,13 @@ for (let index = 0; index < 15; index++) {
  * @param {Array} arr recive un arreglo con los estados 
  */
 const inserEstados = (arr) =>{
-    var scriptStatus = ""
+    var scriptStatus = `<option>Seleccionar</option>`
     arr.map((data,i)=>{
         contratoModel.crearStados(i,data);
         scriptStatus +=`<option value=${i}>${data}</option>`
     })
     document.getElementById("optEstadoContrato").innerHTML =scriptStatus;
+    document.getElementById("selectEstadoReporte").innerHTML=scriptStatus;
 }
 inserEstados(["Activo","Inactivo","Suspendido"]);
 
@@ -40,7 +42,7 @@ inserEstados(["Activo","Inactivo","Suspendido"]);
  * @param {Array} arr recive como parametro un arreglo con todos los tipos para un contrato
  */
 const inserTipos = (arr) =>{
-    var scriptStatus = ""
+    var scriptStatus = `<option>Seleccionar</option>`
     arr.map((data,i)=>{
         contratoModel.crearTipos(i,data);
         scriptStatus +=`<option value=${i}>${data}</option>`
@@ -49,14 +51,6 @@ const inserTipos = (arr) =>{
 }
 inserTipos(["Pila","Cisterna","Aereo"])
 
-
-
-const prueba = async()=>{
-    await contratoModel.verContratoAvanzado((result)=>{
-        console.log(result)
-    })
-}
-prueba();
 
 //TERMINA APARTADO DE DATOS DE PRUEBAS
 
@@ -72,7 +66,7 @@ const limpiar = ()=>{
     var numCasa    = document.getElementById("txtNumCasa").value = "";
     var direccion  = document.getElementById("txtDireccion").value = "";
     abonadoId.removeAttribute("data-idabonado");
-    abonadoId.text="Sin Asignar";
+    abonadoId.value="Sin Asignar";
 }
 
 
@@ -530,7 +524,7 @@ document.getElementById("btnCrearEtapa").addEventListener("click",async(e)=>{
 const llenarBloques = async() =>{
     var bloquesDato = await contratoModel.verBloques((datos)=>{
         var scriptBloque = "";
-        var selectBloque = "";
+        var selectBloque = `<option>Seleccionar</option>`;
         datos.map((data)=>{  
             var idBloque = data.idBloque
             var bloque = data.numBloque
@@ -567,6 +561,7 @@ const llenarBloques = async() =>{
         })
         document.getElementById("dataBloques").innerHTML = scriptBloque;
         document.getElementById("optBloque").innerHTML = selectBloque;
+        document.getElementById("selectBloqueReporte").innerHTML=selectBloque;
     })
     
     
@@ -594,3 +589,148 @@ document.getElementById("btnCrearBloque").addEventListener("click",async(e)=>{
 })
 
 
+/**
+ * GENERAR REPORTES
+ */
+/*
+FUNCION QUE LLENA TABLA REPORTES
+*/
+const llenarReportes = (buscar,tipo) =>{
+    var dataContratos = contratoModel.reporteContratoAvanzado(buscar,tipo,(datos)=>{
+        var scriptReport=""
+        datos.map((dato,i,array)=>{
+            var idContrato = dato.idContrato;
+            var numCasa = dato.numCasa;
+            var bloque = dato.idBloque;
+            var numBloque = dato.numBloque;
+            var idAbonado = dato.idAbonado
+            var estado = dato.estadoContrato;
+            var direccion = dato.direccionPegue
+            var tipo = dato.tipoContrato
+            var nombre = dato.nombres
+            var apellido = dato.apellidos
+            scriptReport+=`
+                <tr class="reportRow"
+                    data-id=${idContrato}
+                    data-nombre="${nombre}"
+                    data-apellido="${apellido}"
+                    data-casa=${numCasa}
+                    data-bloque=${numBloque}
+                    data-dir="${direccion}"
+                    data-est=${estado}
+                    data-tip=${tipo}
+                    >
+                    <td>${idContrato}</td>
+                    <td>${nombre+" "+apellido}</td>
+                    <td>${numCasa}</td>
+                    <td>${numBloque}</td>
+                    <td>${direccion}</td>
+                    <td>${estado}</td>
+                    <td>${tipo}</td>
+                </tr> `;
+        });
+        //AGREGA TODOS LOS DATOS
+        var reports = document.getElementById("dataReportes")
+        reports.innerHTML = scriptReport
+    }) 
+}
+llenarReportes();
+
+//CREAR EL EVENTO PARA REALIZAR LA BUSQUEDA 
+var inputBusquedaReportes= document.getElementById("searchReport")
+inputBusqueda.addEventListener("change",(e)=>{
+    var val = inputBusqueda.value
+    console.log(val);
+    busquedaAvanzada(val);
+
+})
+
+//FUNCIONES PARA MOSTRAR Y OCULTAR ELEMENTOS EN REPORTES
+const mostrarIdentidad= () =>{
+    document.getElementById("txtReportId").style.display = "block"
+    document.getElementById("txtReportNombre").style.display = "none"
+    document.getElementById("selectEstadoReporte").style.display = "none"
+    document.getElementById("selectBloqueReporte").style.display = "none"
+}
+const mostrarNombre= () =>{
+    document.getElementById("txtReportId").style.display = "none"
+    document.getElementById("txtReportNombre").style.display = "block"
+    document.getElementById("selectEstadoReporte").style.display = "none"
+    document.getElementById("selectBloqueReporte").style.display = "none"
+}
+const mostrarEstado= () =>{
+    document.getElementById("txtReportId").style.display = "none"
+    document.getElementById("txtReportNombre").style.display = "none"
+    document.getElementById("selectEstadoReporte").style.display = "block"
+    document.getElementById("selectBloqueReporte").style.display = "none"
+}
+const mostrarBloque= () =>{
+    document.getElementById("txtReportId").style.display = "none"
+    document.getElementById("txtReportNombre").style.display = "none"
+    document.getElementById("selectEstadoReporte").style.display = "none"
+    document.getElementById("selectBloqueReporte").style.display = "block"
+}
+const noMostrarFiltros = ()=>{
+    document.getElementById("txtReportId").style.display = "none"
+    document.getElementById("txtReportNombre").style.display = "none"
+    document.getElementById("selectEstadoReporte").style.display = "none"
+    document.getElementById("selectBloqueReporte").style.display = "none"
+}
+
+document.getElementById("tipoReporte").addEventListener("change",()=>{
+    var valTipo = document.getElementById("tipoReporte").value;
+    
+    switch(valTipo){
+        case "0" : noMostrarFiltros();
+                    llenarReportes
+            break;
+        case "1" : mostrarIdentidad();
+            break;
+        case "2" : mostrarNombre();         
+            break;
+        case "3" : mostrarEstado();          
+            break;
+        case "4" : mostrarBloque();
+            break
+        default:mostrarIdentidad();
+                llenarReportes();
+            break;
+
+    }
+})
+
+
+document.getElementById("txtReportId").addEventListener("change",(e)=>{
+    let valS = document.getElementById("txtReportId").value;
+    let valT = document.getElementById("tipoReporte").value;
+    llenarReportes(valS,valT);
+
+})
+document.getElementById("txtReportNombre").addEventListener("change",(e)=>{
+    let valS = document.getElementById("txtReportNombre").value
+    let valT = document.getElementById("tipoReporte").value
+    llenarReportes(valS,valT);
+
+})
+document.getElementById("selectEstadoReporte").addEventListener("change",(e)=>{
+    let valS = document.getElementById("selectEstadoReporte").value
+    let valT = document.getElementById("tipoReporte").value
+    llenarReportes(valS,valT);
+
+})
+document.getElementById("selectBloqueReporte").addEventListener("change",(e)=>{
+    let valS = document.getElementById("selectBloqueReporte").value
+    let valT = document.getElementById("tipoReporte").value
+    llenarReportes(valS,valT);
+
+})
+
+document.getElementById("btnCrearReporte").addEventListener("click",(e)=>{
+    let tReportes = document.getElementById("tablaReportes")
+    let libro = XLSX.utils.table_to_book(tReportes)
+    let ws = libro.Sheets["Sheet1"];
+    XLSX.utils.sheet_add_aoa(ws, [["Creado "+new Date().toISOString()]], {origin:-1});
+    XLSX.writeFile(libro, "ReporteContratos.xlsx");
+
+
+})

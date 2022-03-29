@@ -10,3 +10,207 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  overflow: hidden;
+}
+
+hr {
+  margin: 1.5rem auto;
+}
+
+.header-nombre {
+  display: grid !important;
+  grid-template-columns: 12.5rem 1fr 1fr !important;
+  grid-template-rows: 12.5rem !important;
+  height: 12.5rem !important;
+  margin-bottom: 1rem;
+}
+
+.user-image-container {
+  height: 12.5rem;
+  width: 12.5rem;
+
+  border: 1px solid #f3f3f3;
+  border-radius: 1.5625rem;
+  overflow: hidden;
+}
+
+.user-image {
+  height: 100%;
+  width: auto;
+}
+
+.name-id-container {
+  padding: 0rem 0.5rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+
+.abonado-edad-container {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.abonado-identidad {
+  margin-bottom: 0;
+}
+
+.container-modificar-abonado {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  margin-bottom: 1.5rem !important;
+}
+
+.flecha-abonado-ir {
+  transform: translateX(0px);
+  transition: all 0.4s ease;
+}
+
+.btn-modificar-abonado:hover > .flecha-abonado-ir {
+  transform: translateX(8px);
+}
+
+.header-busqueda-abonado {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 5rem;
+  margin-bottom: 2rem;
+}
+
+.order-container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+
+.order-item-container {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.order-title {
+  font-size: 0.8em;
+  margin-bottom: 1em;
+}
+
+.order-item:first-of-type {
+  margin-left: 0em;
+}
+
+.order-item {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid #f0f0f0;
+  background-color: rgba(13, 110, 253, 0.09);
+  border-radius: 0.5em;
+  padding: 0.4em 0.5em;
+  margin: 0em 0.5em;
+  color: #040d1b;
+  transition: all 0.4s ease-in-out;
+}
+
+.order-item:hover {
+  cursor: pointer;
+  border-color: #0d6efd;
+}
+
+.order-item > .title {
+  margin-right: 0.3em;
+}
+.order-item > .icon {
+  display: none;
+}
+.order-item.activo {
+  border-color: #0d6efd;
+}
+
+.order-item.activo > .icon {
+  display: inherit;
+}
+
+.order-item.activo > icon:hover {
+  color: red;
+}
+
+.item-abonado {
+  overflow: scroll;
+  overflow-x: hidden;
+  height: calc(100vh - 5rem - 190px);
+}
+
+.items-abonados {
+  border-radius: 0.625rem;
+  border: 1px solid #f0f0f0;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.abonado-listado-nombre-container {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.abonado-listado-nombre-info {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-bottom: 1rem;
+}
+
+.abonado-listado-nombre-info > h4 {
+  margin-bottom: 0;
+}
+
+.abonado-listado-info {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.abonado-button-ver-abonado {
+  transform: scale(0);
+  transition: all 0.2s ease-in-out;
+}
+
+.abonado-button-ver-abonado-title {
+  margin-right: 0.5em;
+}
+
+.items-abonados:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.items-abonados:hover > .abonado-listado-info > .abonado-button-ver-abonado {
+  transform: scale(1);
+}
+
+.total-busqueda {
+  font-size: 1.5rem;
+}
+
+.busqueda-container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  border: 1px solid #aaa;
+  padding: 0.5rem 1rem;
+  border-radius: 0.625rem;
+}
+
+#txtBusquedaAbonado {
+  border: none;
+  padding: 0.5em;
+}

@@ -25,6 +25,7 @@ class Abonados {
       fechaNacimiento TEXT NOT NULL,
       telefono TEXT,
       correoElectronico TEXT,
+      timestamp TEXT,
       idSexo INTEGER,
       FOREIGN KEY(idSexo) REFERENCES sexo(idSexo)
     );
@@ -34,7 +35,6 @@ class Abonados {
     db.transaction((tx) => {
       tx.executeSql(abonadosStatement);
       tx.executeSql(sexoStatement);
-      console.log("base de datos creada correctamente!");
     });
   }
 
@@ -82,32 +82,36 @@ class Abonados {
    * @param {string} orderBy Dato por el cual se van a ordernar los resultados
    */
   obtenerTodoAbonados = async (callback, orderBy = "nombres") => {
-    // Constante donde iría el DML de la consulta a la base de datos.
-    const sql = `
+    try {
+      // Constante donde iría el DML de la consulta a la base de datos.
+      const sql = `
       SELECT *
       FROM abonados
       ORDER BY ${orderBy};
     `;
-    // Arreglo donde se van a guardar los datos.
-    let items = [];
-    // Realizamos la consulta pero no la almacenamos en ninguna variable porque su resultado es asíncrono.
-    db.transaction((tx) => {
-      tx.executeSql(sql, [], (tx, resultados) => {
-        /**
-         * Mapeamos la propiedad de @var rows que es donde vienen los resultados.
-         * Al ir iterando o mapeando los resultados los vamos almacenando en el arreglo @var items,
-         * que en este caso pasará a ser un arreglo de objetos.
-         */
-        [...resultados.rows].map((fila) => items.push(fila));
-        /**
-         * En este punto todos los objetos de resultado fueron almacenados en el arreglo de @var items;
-         * Se lo pasamos al @function callback (así es, es una función que va como argumento de una función, lo bonito de js ;) )
-         * que nos retorna todo los resultados.
-         * Esto se hace así por la naturaleza asíncrona de las funciones de Web SQL Database.
-         */
-        callback(items);
+      // Arreglo donde se van a guardar los datos.
+      let items = [];
+      // Realizamos la consulta pero no la almacenamos en ninguna variable porque su resultado es asíncrono.
+      db.transaction((tx) => {
+        tx.executeSql(sql, [], (tx, resultados) => {
+          /**
+           * Mapeamos la propiedad de @var rows que es donde vienen los resultados.
+           * Al ir iterando o mapeando los resultados los vamos almacenando en el arreglo @var items,
+           * que en este caso pasará a ser un arreglo de objetos.
+           */
+          [...resultados.rows].map((fila) => items.push(fila));
+          /**
+           * En este punto todos los objetos de resultado fueron almacenados en el arreglo de @var items;
+           * Se lo pasamos al @function callback (así es, es una función que va como argumento de una función, lo bonito de js ;) )
+           * que nos retorna todo los resultados.
+           * Esto se hace así por la naturaleza asíncrona de las funciones de Web SQL Database.
+           */
+          callback(items);
+        });
       });
-    });
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   /**
@@ -153,6 +157,34 @@ class Abonados {
   };
 
   /**
+   * Método para buscar abonados por su nombre
+   * @param {string} nombre Nombre del abonado a buscar
+   * @param {function} callback Callback para obtener los resultados de la busqueda
+   */
+  buscarAbonadoPorNombre = (nombre, callback) => {
+    try {
+      const sql = `
+        SELECT *
+        FROM abonados
+        WHERE nombres
+        LIKE ?
+      `;
+      let values = [`${nombre}%`];
+      let items = [];
+      db.transaction((tx) => {
+        tx.executeSql(sql, values, (tx, resultados) => {
+          resultados?.rowsAffected === 0 && callback(items);
+          [...resultados.rows].map((fila) => items.push(fila));
+          console.log(resultados);
+          callback(items);
+        });
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
    * Método para craer el Abonado de la base de datos.
    * @param {string} idAbonado UUID del Abonado
    * @param {string} identidad Identidad del Abonado (XXXX-XXXX-XXXXX)
@@ -188,9 +220,10 @@ class Abonados {
         fechaNacimiento,
         telefono,
         correoElectronico,
+        timestamp,
         idSexo
       ) VALUES (
-        ?,?,?,?,?,?,?,?,?
+        ?,?,?,?,?,?,?,?,?,?
       );
     `;
     const values = [
@@ -202,6 +235,7 @@ class Abonados {
       fechaNacimiento,
       telefono,
       correoElectronico,
+      `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
       sexo,
     ];
     const resultado = await db.transaction((tx) =>
@@ -212,6 +246,20 @@ class Abonados {
     return resultado;
   };
 
+  /**
+   * Método para actualizar el abonado de la base de datos.
+   * @param {string} idAbonado Identificador del abonado a editar
+   * @param {string} identidad Número de identidad con guiones del abonaod
+   * @param {string} nombres Primer y segundo nombre del abonado
+   * @param {string} apellidos Primer y segundo apellido del abonado
+   * @param {string} direccion Dirección de viviendo del abonado
+   * @param {string} fechaNacimiento Fecha de nacimiento del abonado (DD-MM-YYYY)
+   * @param {number} sexo Género del abonado (1 - Hombre : 2 - Mujer)
+   * @param {string} telefono Número telefónico del abonado
+   * @param {string} correoElectronico Dirección de correo electrónico del abonado
+   * @param {function} callback Callback para cuando el abonado sea ingresado en la base de datos
+   * @returns Promise
+   */
   actualizarAbonado = async (
     idAbonado,
     identidad,
@@ -221,9 +269,11 @@ class Abonados {
     fechaNacimiento,
     sexo,
     telefono = "",
-    correoElectronico = ""
+    correoElectronico = "",
+    callback
   ) => {
-    const updateAbonadoSql = `
+    try {
+      const updateAbonadoSql = `
       UPDATE abonados
       SET identidad = ?,
           nombres = ?,
@@ -235,21 +285,26 @@ class Abonados {
           correoElectronico = ?
       WHERE idAbonado = ?;
     `;
-    const values = [
-      identidad,
-      nombres,
-      apellidos,
-      direccion,
-      fechaNacimiento,
-      sexo,
-      telefono,
-      correoElectronico,
-      idAbonado,
-    ];
-    const resultado = await db.transaction((tx) =>
-      tx.executeSql(updateAbonadoSql, values)
-    );
-    return resultado;
+      const values = [
+        identidad,
+        nombres,
+        apellidos,
+        direccion,
+        fechaNacimiento,
+        sexo,
+        telefono,
+        correoElectronico,
+        idAbonado,
+      ];
+      const resultado = await db.transaction((tx) =>
+        tx.executeSql(updateAbonadoSql, values, (tx, result) => {
+          callback(result);
+        })
+      );
+      return resultado;
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   /**
@@ -257,15 +312,16 @@ class Abonados {
    * @param {string} id UUID del Abonado que se desea eliminar
    * @returns Promise
    */
-  eliminarAbonado = async (id) => {
+  eliminarAbonado = async (id, callback) => {
     const sql = `
       DELETE
       FROM abonados
       WHERE idAbonado = ?;
     `;
     const values = [id];
-    const resultado = await db.transaction((tx) => tx.executeSql(sql, values));
-    return resultado;
+    const resultado = await db.transaction((tx) =>
+      tx.executeSql(sql, values, (tx, result) => callback(result))
+    );
   };
 }
 
