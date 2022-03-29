@@ -228,6 +228,64 @@ class Contratos{
         });
     }; 
 
+    reporteContratoAvanzado =  async (datoBusqueda="",tipo="",callback) => {
+        let values = []
+        var part2 = ``
+        var part1 =`
+        SELECT
+        Contratos.idContrato AS idContrato,
+        Contratos.numCasa AS numCasa,
+        Contratos.direccionPegue AS direccionPegue,
+        abonados.idAbonado AS idAbonado,
+        abonados.identidad AS identidad,
+        abonados.nombres AS nombres,
+        abonados.apellidos AS apellidos,
+        tipoContratos.idTipoContrato AS idTipoContrato,
+        tipoContratos.tipoContrato AS tipoContrato,
+        estadoContrato.idEstadoContrato AS idEstadoContrato,
+        estadoContrato.estadoContrato AS estadoContrato,
+        Contratos.idUsuario,
+        bloque.idBloque AS idBloque,
+        bloque.numBloque AS numBloque
+
+        FROM
+        Contratos
+        INNER JOIN abonados         ON abonados.idAbonado = Contratos.idAbonado
+        INNER JOIN tipoContratos    ON tipoContratos.idTipoContrato = Contratos.idTipoContrato
+        INNER JOIN estadoContrato   ON estadoContrato.idEstadoContrato = Contratos.idEstadoContrato
+        INNER JOIN bloque           ON bloque.idBloque  = Contratos.idBloque
+        `
+        switch(tipo){
+            case "1"://Identidad Abonado
+                part2 = ` WHERE abonados.identidad = ?`
+                values = [datoBusqueda]
+                break;
+            case "2"://Nombre Abonado
+                part2 = ` WHERE abonados.nombres LIKE ?`
+                values = [`%${datoBusqueda}`]
+                break;
+            case "3"://idEstadoContrato
+                part2 = ` WHERE estadoContrato.idEstadoContrato = ?`
+                values = [datoBusqueda]
+                break;
+            case "4"://idBloque
+                part2 = ` WHERE bloque.idBloque = ?`
+                values = [datoBusqueda]
+                break;
+            default:part2=``;
+                break
+        }
+        
+        var sql = part1+part2
+        let contrato = [];
+        await db.transaction((tx) => {
+          tx.executeSql(sql, values, (tx, resultados) => {
+            [...resultados.rows].map((fila) => contrato.push(fila));
+            callback(contrato);
+          });
+        });
+    }; 
+
 
 
     /**
