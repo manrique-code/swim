@@ -32,7 +32,7 @@ ventanaContrato = () => {
   win.maximize();
 };
 
-ventanaUsuario = () => {
+ventanaInicioSesion = () => {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
@@ -43,22 +43,7 @@ ventanaUsuario = () => {
     },
   });
 
-  win.loadFile("views/usuarios/usuarios.html");
-  win.maximize();
-};
-
-ventanafacturacion = () => {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: true,
-      enableRemoteModule: true,
-    },
-  });
-
-  win.loadFile("views/facturacion/facturacion.html");
+  win.loadFile("views/usuarios/login.html");
   win.maximize();
 };
 

@@ -92,11 +92,17 @@ class Usuarios {
         });
     };
 
-    obtenerTodoUsuarios = async (callback, orderBy = "nombreUsuario") => {
+    obtenerTodoUsuarios = async (callback) => {
         const sql = `
-          SELECT *
-          FROM usuarios
-          ORDER BY ${orderBy};
+          SELECT u.idUsuario AS idUsuario, 
+          u.nombreUsuario AS nombreUsuario,
+          u.contraseña AS contraseña, 
+          u.fechaRegistro AS fechaRegistro, 
+          e.estadoUsuario AS estadoUsuario, 
+          tp.tipoUsuario AS tipoUsuario
+          FROM usuarios AS u
+          INNER JOIN estadoUsuario AS e ON u.idEstadoUsuario = e.idEstadoUsuario
+          INNER JOIN tipoUsuario AS tp ON u.idTipoUsuario = tp.idTipoUsuario;
         `;
         let items = [];
         db.transaction((tx) => {
@@ -107,13 +113,13 @@ class Usuarios {
         });
     };
 
-    obtenerUsuarioPorId = (id, callback) => {
+    obtenerUsuarioPorNombre = (nombre, callback) => {
         const sql = `
           SELECT *
           FROM usuarios
-          WHERE idAUsuario = ?
+          WHERE nombreUsuario = ?
         `;
-        let values = [id];
+        let values = [nombre];
         let items = [];
         db.transaction((tx) => {
           tx.executeSql(sql, values, (tx, resultados) => {
@@ -188,7 +194,7 @@ class Usuarios {
         return resultado;
     };
 
-    eliminarAbonado = async (id) => {
+    eliminarUsuario = async (id) => {
         const sql = `
           DELETE
           FROM usuarios

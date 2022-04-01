@@ -60,19 +60,16 @@ const guardarUsuario = async () => {
 document
   .getElementById("btn-guardar-info")
   .addEventListener("click", async (e) => {
-    let esUsuarioCreado = null;
+    let esUsuarioCreado;
     e.preventDefault();
     e.stopPropagation();
     esUsuarioCreado = await guardarUsuario();
   });
 
-document
-  .getElementById("headerButtonSidebar")
-  .addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const sidebar = document.getElementById("sidebarSwim");
-    if (sidebar.classList.contains("mostrar"))
-      sidebar.classList.remove("mostrar");
-    else sidebar.classList.add("mostrar");
-  });
+  document.getElementById("btnIrCrearUsuarios").addEventListener("click", async (e) => {
+    window.location = "usuariosLog.html"
+  })
+  
+  document.getElementById("btnIrListadoUsuarios").addEventListener("click", async (e) => {
+    window.location = "listadousuarios.html"
+  })
