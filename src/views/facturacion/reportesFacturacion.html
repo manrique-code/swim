@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../assets/css/fontawesome/all.css" />
+        <link
+        rel="stylesheet"
+        href="../../assets/css/fontawesome/fontawesome.css"
+        />
+        <link rel="stylesheet" href="../../assets/css/bootstrap/bootstrap.css" />
+        <link rel="stylesheet" href="../../assets/css/styles.css" />
+        <link rel="stylesheet" href="../../assets/css/facturacion/facturacion.css">
+        <title>Reportes Facturación</title>
+    </head>
+    <body>
+        <script src="../../assets/js/fontawesome/all.js"></script>
+        <script src="../../assets/js/bootstrap/bootstrap.js"></script>
+        <script src="../../assets/js/fontawesome/all.js"></script>
+        <script src="../../assets/js/bootstrap/bootstrap.js"></script>
+        <div class="container">
+            <nav class="navbar navbar-dark bg-primary fixed-top">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Reportes</a>
+                    <!-- CANVAS -->
+                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                    <div class="offcanvas-header bg-primary text-light">
+                        <h5 class="offcanvas-title" id="offcanvasExampleLabel ">Opciones</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body lateral text-light">
+                        
+                        <ul class="nav list-group bg-dark" id="myTab" role="tablist">
+                            <li class="nav-item list-group-item d-grid gap-2 " role="presentation">
+                                <button class="nav-link active btn btn-outline-light" id="btn-irReporte" data-bs-toggle="tab" data-bs-target="#crearcontrato" type="button" role="tab" aria-controls="crearcontrato" aria-selected="false">Facturación</button>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                    <!-- CANVAS -->
+                </div>
+            </nav>
+            <div class="container" style="margin-top:80px">
+                <div class="row" style="margin-bottom: 10px;">
+              
+                <div class="col-9">
+                  <!-- FILTRO DE REPORTES -->
+                  <div class="row">
+                    <div class="col-8">
+                      <div class="row">
+                        <input type="search" id="txtReportId" style="display: none;" class="form-control" placeholder="Ejem. 0601-2001-00349">
+                        <input type="search" id="txtReportNombre" style="display:none;" class="form-control" placeholder="Ejem. Carlos">
+                        <select name="" class="form-select" style="display:none;" id="selectEstadoReporte"></select>
+                        <select name="" class="form-select" style="display:none;"  id="optTipoContrato" ></select>
+                      </div>
+                    
+                    </div>
+                    <div class="col-4">
+                      <select name="" class="form-select" id="tipoReporte">
+                            <option value="0" selected >Todos</option>
+                            <option value=1>Identidad Abonado</option>
+                            <option value=2>Nombre Abonado</option>
+                            <option value=3>Estado Contrato</option>
+                            <option value=4>Tipo Contrato</option>
+                        </select>
+                    </div>
+                  </div>
+                  <!-- FIN FILTRO DE REPORTES -->
+                </div>
+                <div class="col-3">
+                  <button class="form-control btn btn-success" id="btn-reporte">Generar Reporte</button>
+                </div>
+              </div>
+            </div>
+            
+              
+            <div class="row">
+                <div class="col-lg-12">
+                    <div style="height: 520px; overflow: scroll; margin-top: 30px;"
+                        >
+                        <table class="table" id="tabla-reporte">
+                            <thead>
+                                <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Identidad</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Mes</th>
+                                <th scope="col">Valor</th>
+                                <th scope="col">Fecha Pago</th>
+                                <th scope="col">ID Contrato</th>
+                                <th scope="col">Estado Contrato</th>
+                                <th scope="col">Tipo Contrato</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tb-reportes">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </body>
+    <script
+        type="module"
+        src="../../assets/js/facturacion/reportesFacturacion.view.js"
+        
+    ></script>
+    <script src="../../assets/js/jsPDF/dist/jspdf.min.js"></script>
+    <script lang="javascript" src="../../assets/js/xlsx/xlsx.full.min.js"></script>
+</html>

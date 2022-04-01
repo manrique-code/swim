@@ -97,6 +97,56 @@ class Facturacion {
 
   /* ----------------------------------------------------------------------------------------- */
 
+  verFacturacion = async (datoBusqueda="",tipo="",callback) =>{
+    let values = []
+    var part3 = ``
+    var part2 = ``
+    var part1 =`
+    SELECT * 
+    FROM controlPagos         AS cp
+    INNER JOIN Contratos      AS c ON cp.idContrato = c.idContrato
+    INNER JOIN abonados       AS a ON c.idAbonado = a.idAbonado
+    INNER JOIN tipoContratos  AS t ON c.idTipoContrato = t.idTipoContrato
+    INNER JOIN bloque         AS b ON c.idBloque = b.idBloque
+    INNER JOIN etapa          AS e ON b.idEtapa = e.idEtapa
+    INNER JOIN mes            AS m ON cp.idMes = m.idMes
+    INNER JOIN estadoContrato AS ec ON ec.idEstadoContrato = c.idEstadoContrato
+    `;
+    switch(tipo){
+      case "1"://Identidad Abonado
+          part2 = ` WHERE a.identidad LIKE '%' || ? || '%'`
+          part3 = `ORDER BY cp.idContrato asc`
+          values = [datoBusqueda]
+          break;
+      case "2"://Nombre Abonado
+          part2 = ` WHERE a.nombres LIKE '%' || ? || '%'`
+          part3 = `ORDER BY cp.idContrato asc`
+          values = [`%${datoBusqueda}`]
+          break;
+      case "3"://idEstadoContrato
+          part2 = ` WHERE ec.idEstadoContrato = ?`
+          part3 = `ORDER BY cp.idContrato asc`
+          values = [datoBusqueda]
+          break;
+      case "4"://idBloque
+          part2 = ` WHERE t.idtipoContrato = ?`
+          part3 = `ORDER BY cp.idContrato asc`
+          values = [datoBusqueda]
+          break;
+      default:part2=``
+      part3 = `ORDER BY cp.idContrato asc`;
+          break
+    } 
+    var sql = part1+part2+part3
+    let contrato = [];
+    await db.transaction((tx) => {
+      tx.executeSql(sql, values, (tx, resultados) => {
+        [...resultados.rows].map((fila) => contrato.push(fila));
+        callback(contrato);
+      });
+    });
+  }
+
   verContratosFactura = async (callback) =>{
     const sql = `
       SELECT * 

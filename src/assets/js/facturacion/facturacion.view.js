@@ -119,6 +119,10 @@ document.getElementById("btn-pagar").addEventListener("click", async (e) => {
   document.getElementById("mesesFacturacion").value = 1
 });
 
+document.getElementById("btn-irReporte").addEventListener("click", async (e) => {
+  window.location = "reportesFacturacion.html"
+})
+
 document.getElementById("btn-cancelar").addEventListener("click", async (e) => {
   document.getElementById("btn-actualizar").style.display = "none"
   document.getElementById("btn-cancelar").style.display = "none"
@@ -165,15 +169,11 @@ const llenarTabla = () =>{
         btnActualizar.style.border = "none"
         btnActualizar.style.color = "green"
         btnActualizar.style.alignContent = "center"
-        btnActualizar.style.marginTop = "5px"
-        btnActualizar.style.marginBottom = "5px"
         btnActualizar.style.marginRight = "5px"
         btnActualizar.innerHTML = `<i class="fa-solid fa-pencil fa-lg"></i>`
         btnEliminar.style.border = "none"
         btnEliminar.style.alignContent = "center"
         btnEliminar.style.color = "red"
-        btnEliminar.style.marginTop = "5px"
-        btnEliminar.style.marginBottom = "5px"
         btnEliminar.innerHTML = `<i class="fa-solid fa-trash fa-lg"></i>`
 
         btnActualizar.onclick = function(){
@@ -245,10 +245,7 @@ const llenarTablaAbonados = () =>{
         btnSelect.style.border = "none"
         btnSelect.style.alignContent = "center"
         btnSelect.style.color = "green"
-        btnSelect.style.marginTop = "5px"
-        btnSelect.style.marginBottom = "5px"
-        btnSelect.style.marginRight = "5px"
-        btnSelect.innerHTML = `<i class="fa-solid fa-pencil fa-lg"></i>`
+        btnSelect.innerHTML = `<i class="fa-solid fa-dollar-sign fa-xl"></i>`
 
         btnSelect.onclick = function(){
           document.getElementById("btn-actualizar").style.display = "none"
@@ -337,14 +334,3 @@ const llenarTablaAbonadosPorNombre = () =>{
     }
   );
 }
-
-document
-  .getElementById("headerButtonSidebar")
-  .addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const sidebar = document.getElementById("sidebarSwim");
-    if (sidebar.classList.contains("mostrar"))
-      sidebar.classList.remove("mostrar");
-    else sidebar.classList.add("mostrar");
-  });
