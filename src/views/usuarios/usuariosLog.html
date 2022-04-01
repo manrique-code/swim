@@ -11,13 +11,43 @@
     />
     <link rel="stylesheet" href="../../assets/css/bootstrap/bootstrap.css" />
     <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <link rel="stylesheet" href="../../assets/css/usuarios/usuarios.css" />
     <title>Usuarios</title>
   </head>
   <body>
 
     <main class="container-fluid">
       <section class="row justify-content-center">
-        <article class="col-7 mt-4">
+        <nav class="navbar navbar-dark bg-primary fixed-top">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">Ir al menú</a>
+              <!-- CANVAS -->
+              <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header bg-primary text-light">
+                  <h5 class="offcanvas-title" id="offcanvasExampleLabel ">Opciones</h5>
+                  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body lateral text-light">
+                  
+                  <ul class="nav list-group bg-dark" id="myTab" role="tablist">
+                    
+                      <li class="nav-item list-group-item d-grid gap-2 " role="presentation">
+                        <a class="nav-link active btn btn-outline-light" id="btnIrCrearUsuarios" data-bs-toggle="tab" type="button" role="tab" aria-controls="crearusuario" aria-selected="true">Crear Usuarios</a>
+                      </li>
+                      <li class="nav-item list-group-item d-grid gap-2" role="presentation">
+                        <a class="nav-link btn btn-outline-light" id="btnIrListadoUsuarios" data-bs-toggle="tab" type="button" role="tab" aria-controls="verusuarios" aria-selected="false">Listado Usuario</a>
+                      </li>
+                  </ul>
+                  
+                </div>
+              </div>
+              <!-- CANVAS -->
+            </div>
+          </nav>
+        <article class="col-5 mt-4">
           <div class="tab-content" id="pills-tabContent">
             <div
               class="tab-pane fade show active"
@@ -93,13 +123,6 @@
                 >
                   Guardar usuario
                 </button>
-                <a
-                  class="btn btn-outline-secondary me-2"
-                  id="btn-cancelar"
-                  href="../usuarios/login.html"
-                >
-                  Regresar
-                </a>
               </div>
             </div>
             

@@ -1,0 +1,13 @@
+.lateral{
+    background-color: hsl(210, 11%, 25%);
+}
+td a{
+    text-decoration: none;
+}
+tr {
+    text-align: center;
+}
+thead{
+    background-color:rgb(50, 101, 211); 
+    color: white;
+}
