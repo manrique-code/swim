@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="../../assets/css/bootstrap/bootstrap.css" />
         <link rel="stylesheet" href="../../assets/css/styles.css" />
         <link rel="stylesheet" href="../../assets/css/login/signin.css" />
-        <title>Iniciio de sesión</title>
+        <title>Inicio de sesión</title>
     </head>
     <body class="text-center">
         <div class="col-4"> </div>
@@ -20,16 +20,16 @@
             <form class="form-signin">
                 <img class="mb-4" src="../../assets/img/Logo.jpg" alt="" width="200" height="120">
                 <h1 class="h3 mb-3 font-weight-normal">Inicio de sesión</h1>
-                <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Nombre de usuario" required="" autofocus="">
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="">
+                <label for="inputUsuario" class="sr-only">Nombre de usuario</label>
+                <input type="text" id="txtUsuario" class="form-control" placeholder="Nombre de usuario" required="">
+                <label for="inputContraseña" class="sr-only">Contraseña</label>
+                <input type="password" id="txtContraseña" class="form-control" placeholder="Contraseña" required="">
                 <div class="mb-3">
                   <label>
                     <a href="../usuarios/usuarios.html">Registrarse</a>
                   </label>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+                <button class="btn btn-lg btn-primary btn-block" id="btnIngresar" type="submit">Ingresar</button>
             </form>
         </div>
         <div class="col-4"></div>
@@ -39,6 +39,6 @@
     <script src="../../assets/js/bootstrap/bootstrap.js"></script>
     <script
     type="module"
-    src="../../assets/js/usuarios/usuarios.view.js"
+    src="../../assets/js/usuarios/login.view.js"
     ></script>
 </html>
