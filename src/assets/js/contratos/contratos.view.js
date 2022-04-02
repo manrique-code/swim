@@ -4,6 +4,8 @@ const contratoModel = new Contratos();
 import Abonados from "../../../dao/abonados/abonados.model.js"
 const abonadosModel = new Abonados();
 
+const storage = window.localStorage;
+console.log(storage.getItem("id"))
 
 //FUNCION DE PRUEBA PARA CREAR ABONADOS
 for (let index = 0; index < 15; index++) {
@@ -92,7 +94,7 @@ const limpiar = ()=>{
             parseInt(tipoOption),
             parseInt(estaOption),
             parseInt(bloqOption),
-            1 //ACTUALIZAR CUANDO SE TENGA UN USUARIO
+            storage.getItem("id")
         )
         limpiar();
         llenarTabla();
@@ -119,7 +121,7 @@ const actualizarContrato = async(idContrato) =>{
             parseInt(tipoOption),
             parseInt(estaOption),
             parseInt(bloqOption),
-            1 //ACTUALIZAR CUANDO SE TENGA UN USUARIO
+            storage.getItem("id")
         )
         
         limpiar();

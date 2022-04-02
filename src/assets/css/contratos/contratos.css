@@ -13,7 +13,7 @@ thead{
     color: white;
 }
 .lateral{
-    background-color: hsl(210, 11%, 25%);
+    background-color: hsla(0, 0%, 0%, 0.61);
 }
 
 .btnEdit{
