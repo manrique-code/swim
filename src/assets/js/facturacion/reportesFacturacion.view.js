@@ -111,6 +111,7 @@ const llenarTablaReportes = (buscar,tipo) =>{
           const idContrato = document.createElement("td");
           const estado = document.createElement("td");
           const tipoContrato = document.createElement("td");
+          const usuario = document.createElement("td");
           const txtEnum = document.createTextNode(i++)
           const txtIdentidad = document.createTextNode(c?.identidad)
           const txtNombre = document.createTextNode(c?.nombres)
@@ -121,6 +122,7 @@ const llenarTablaReportes = (buscar,tipo) =>{
           const txtIdContrato = document.createTextNode(c?.idContrato)
           const txtEstado = document.createTextNode(c?.estadoContrato)
           const txtTipoContrato = document.createTextNode(c?.tipoContrato)
+          const txtUsuario = document.createTextNode(c?.nombreUsuario)
   
           Enumeracion.appendChild(txtEnum)
           identidad.appendChild(txtIdentidad)
@@ -132,6 +134,7 @@ const llenarTablaReportes = (buscar,tipo) =>{
           idContrato.appendChild(txtIdContrato)
           estado.appendChild(txtEstado)
           tipoContrato.appendChild(txtTipoContrato)
+          usuario.appendChild(txtUsuario)
           
           hilera.appendChild(Enumeracion)
           hilera.appendChild(identidad)
@@ -143,6 +146,7 @@ const llenarTablaReportes = (buscar,tipo) =>{
           hilera.append(idContrato)
           hilera.appendChild(estado)
           hilera.appendChild(tipoContrato)
+          hilera.appendChild(usuario)
           idTabla.appendChild(hilera)
         })
       }
@@ -166,8 +170,6 @@ document.getElementById("txtReportNombre").addEventListener("keyup",(e)=>{
 document.getElementById("selectEstadoReporte").addEventListener("change",(e)=>{
     let valS = document.getElementById("selectEstadoReporte").value
     let valT = document.getElementById("tipoReporte").value
-    console.log(valS)
-  console.log(valT)
     vaciarTablaReportes()
     llenarTablaReportes(valS,valT);
 })
@@ -175,8 +177,6 @@ document.getElementById("selectEstadoReporte").addEventListener("change",(e)=>{
 document.getElementById("optTipoContrato").addEventListener("change",(e)=>{
   let valS = document.getElementById("optTipoContrato").value
   let valT = document.getElementById("tipoReporte").value
-  console.log(valS)
-  console.log(valT)
   vaciarTablaReportes()
   llenarTablaReportes(valS,valT);
 })

@@ -11,7 +11,7 @@ class Facturacion {
 
       const controlPagosStatement = `
       CREATE TABLE IF NOT EXISTS controlPagos(
-      idControlPago TEXT PRIMARY KEY,
+      idControlPago INTEGER PRIMARY KEY AUTOINCREMENT,
       fechaPago TEXT NOT NULL,
       valor DECIMAL(7,2) NOT NULL,
       idContrato INTEGER,
@@ -71,7 +71,7 @@ class Facturacion {
     FROM controlPagos AS cp
     INNER JOIN mes AS m ON cp.idMes = m.idMes
     WHERE idContrato = ?
-    ORDER BY cp.fechaPago, m.idMes desc LIMIT 12
+    ORDER BY cp.idControlPago desc LIMIT 12
     `;
     let values = [id];
     let items = [];
@@ -85,15 +85,6 @@ class Facturacion {
 
   /* ----------------------------------------------------------------------------------------- */
 
-
-  generarUuid = async () => {
-    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
-      (
-        c ^
-        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-      ).toString(16)
-    );
-  };
 
   /* ----------------------------------------------------------------------------------------- */
 
@@ -111,6 +102,7 @@ class Facturacion {
     INNER JOIN etapa          AS e ON b.idEtapa = e.idEtapa
     INNER JOIN mes            AS m ON cp.idMes = m.idMes
     INNER JOIN estadoContrato AS ec ON ec.idEstadoContrato = c.idEstadoContrato
+    INNER JOIN usuarios       AS u ON cp.idUsuario = u.idUsuario
     `;
     switch(tipo){
       case "1"://Identidad Abonado
@@ -207,7 +199,6 @@ class Facturacion {
   */
   
   nuevaFacturacion = async (
-      idControlPago,
       fechaPago,
       valor,
       idContrato,
@@ -216,18 +207,16 @@ class Facturacion {
   ) => {
       const createFacturacionSql = `
       INSERT INTO controlPagos(
-          idControlPago,
           fechaPago,
           valor,
           idContrato,
           idMes,
           idUsuario
       ) VALUES (
-          ?,?,?,?,?,?
+          ?,?,?,?,?
       );
       `;
       const values = [
-          idControlPago,
           fechaPago,
           valor,
           idContrato,
@@ -264,7 +253,6 @@ class Facturacion {
           idUsuario,
           idControlPago
       ];
-      console.log(values)
       const resultado = await db.transaction((tx) =>
         tx.executeSql(updateFacturacionSql, values)
       );

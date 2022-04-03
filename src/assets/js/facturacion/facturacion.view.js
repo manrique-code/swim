@@ -5,7 +5,8 @@ let ID = "";
 let idContrato = "";
 let mes = 0;
 let identidad = "";
-
+let precio = 800;
+document.getElementById("valor").value = precio
 //facturacionModel.actualizarFacturacion
 
 // Ejecuta la funcion para agregar todos los meses del año
@@ -23,16 +24,14 @@ const insertar = async () => {
   }else{
     fechaActual = `${year}-0${month}-${day}`
   }
-
-  const uuidGenerado = await facturacionModel.generarUuid();
+  const Usuario = localStorage.getItem("id")
   const mesSeleccionado = document.getElementById("mesesFacturacion").value;
   await facturacionModel.nuevaFacturacion(
-    uuidGenerado,
     fechaActual,
-    800,
+    precio,
     idContrato,
     mesSeleccionado,
-    1,
+    Usuario,
     (resultado) => {
       if (resultado.rowsAffected) {
         alert("Se realizo el pago");
@@ -45,14 +44,13 @@ const actualizar = async (idPago,idCon) => {
   const uuidGenerado = idPago;
   const idContrato = idCon;
   const mesSeleccionado = document.getElementById("mesesFacturacion").value;
-  console.log(mesSeleccionado)
-  console.log(uuidGenerado)
+  const Usuario = localStorage.getItem("id")
   await facturacionModel.actualizarFacturacion(
     uuidGenerado,
-    800,
+    precio,
     idContrato,
     mesSeleccionado,
-    2,
+    Usuario,
     (resultado) => {
       if (resultado.rowsAffected) {
         alert("Se actualizo el pago");
@@ -106,6 +104,7 @@ document.getElementById("btn-actualizar").addEventListener("click", async (e) =>
   llenarTabla();
   document.getElementById("btn-actualizar").style.display = "none"
   document.getElementById("btn-pagar").style.display = "inline"
+  document.getElementById("btn-cancelar").style.display = "none"
   document.getElementById("mesesFacturacion").value = 1
 });
 

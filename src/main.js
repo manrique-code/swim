@@ -32,6 +32,21 @@ ventanaContrato = () => {
   win.maximize();
 };
 
+ventanaFacturacion = () => {
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: true,
+      enableRemoteModule: true,
+    },
+  });
+
+  win.loadFile("views/facturacion/facturacion.html");
+  win.maximize();
+};
+
 ventanaInicioSesion = () => {
   const win = new BrowserWindow({
     width: 800,
@@ -48,11 +63,11 @@ ventanaInicioSesion = () => {
 };
 
 app.whenReady().then(() => {
-  ventanafacturacion();
+  ventanaInicioSesion();
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      ventanafacturacion();
+      ventanaInicioSesion();
     }
   });
 });
