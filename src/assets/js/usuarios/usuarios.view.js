@@ -3,6 +3,7 @@ import Usuarios from "../../../dao/usuarios/usuarios.model.js";
 const usuarioModel = new Usuarios();
 //const data = await usuarioModel.estadoUsuarioCreate()
 //const data2 = await usuarioModel.tipoUsuarioCreate()
+//const data3 = await usuarioModel.usuarioAdminCreate()
 /*
 const datos = await usuarioModel.nuevoUsuario(
     "caguilar",

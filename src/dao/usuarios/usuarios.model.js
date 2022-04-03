@@ -53,6 +53,13 @@ class Usuarios {
         return datos;
     };
 
+    usuarioAdminCreate = async () => {
+      const createCmd =
+        "INSERT INTO usuarios(nombreUsuario, contraseña, fechaRegistro, idEstadoUsuario, idTipoUsuario) VALUES('admin', '123', '2022-04-01', 1, 1);";
+      const datos = await db.transaction((tx) => tx.executeSql(createCmd));
+      return datos;
+    };
+
  /**
    * Método para crear los tipos de usuario.
    * @returns Promise

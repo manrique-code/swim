@@ -24,10 +24,19 @@ const iniciarSesion = async ()=>{
                         document.getElementById("txtUsuario").value = "";
                         document.getElementById("txtContraseña").value = "";
                     }else if(nombreUsuario == d?.nombreUsuario && contraseña == d?.contraseña){
-                        miStorage.setItem('id', d?.idUsuario);
-                        miStorage.setItem('usuario', d?.nombreUsuario);
-                        miStorage.setItem('tipoUsuario', d?.idTipoUsuario)
-                        window.location="../index.html";
+                        if(d?.idTipoUsuario == 1){
+                            miStorage.setItem('id', d?.idUsuario);
+                            miStorage.setItem('usuario', d?.nombreUsuario);
+                            miStorage.setItem('tipoUsuario', d?.idTipoUsuario)
+                            window.location="../index.html";
+                        }else{
+                            miStorage.setItem('id', d?.idUsuario);
+                            miStorage.setItem('usuario', d?.nombreUsuario);
+                            miStorage.setItem('tipoUsuario', d?.idTipoUsuario)
+                            window.location="../indexempleados.html";
+                        }
+                        
+                        
                     }else{
                         alert('El usuario o la contraseña son incorrectos, verifique.')
                         document.getElementById("txtUsuario").value = "";
